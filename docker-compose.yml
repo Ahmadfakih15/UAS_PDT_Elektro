@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  db_pusat:
+    image: mysql:8.0
+    container_name: db_pusat_jakarta
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: db_elektro_pusat
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/init_pusat.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - elektro
+
+  db_tasik:
+    image: mysql:8.0
+    container_name: db_cabang_tasik
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: db_elektro_tasik
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./database/init_tasik.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - elektro
+
+  db_bogor:
+    image: mysql:8.0
+    container_name: db_cabang_bogor
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: db_elektro_bogor
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./database/init_bogor.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - elektro
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma_elektro
+    environment:
+      PMA_HOSTS: db_pusat,db_tasik,db_bogor
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    ports:
+      - "8080:80"
+    depends_on:
+      - db_pusat
+      - db_tasik
+      - db_bogor
+    networks:
+      - elektro
+
+networks:
+  elektro:
+    driver: bridge
