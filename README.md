@@ -2,10 +2,10 @@
 ## PT Elektro Nusantara
 
 **Nama:** Ahmad Fakih  
-**NIM:** [NIM Kamu]  
-**Kelas:** [Kelas Kamu]  
+**NIM:** 10223060  
+**Kelas:** IF VI A 
 
-### Deskripsi:
+### Deskripsi
 Sistem Informasi Distribusi Terintegrasi dengan konsep:
 - Distributed Database (3 Database: Pusat, Tasik, Bogor)
 - Role-Based Access Control (RBAC)
